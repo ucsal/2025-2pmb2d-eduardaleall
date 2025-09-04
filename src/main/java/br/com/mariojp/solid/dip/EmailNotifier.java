@@ -6,19 +6,22 @@ public class EmailNotifier {
 
 	public EmailNotifier(){
 		if ("true".equalsIgnoreCase(System.getProperty("DRY_RUN"))){
-			this.mailSender = Noop();
-		}else{
-			this.mailSender = new SmtpClient();
-		
+			this.mailSender = new MailSender() {
+				
+
+				@Override
+				public void send(String to, String subject, String body) {
+					System.out.println("DRY_RUN:" + to);
+				}
+			};
+	
+		} else {
+			this.mailSender=new SmtpClient();
 		}
-		}
+	
 	}
 
-
 	public void welcome(User user) {
-		if ("true".equalsIgnoreCase(System.getProperty("DRY_RUN"))) {
-			// Estado inicial: ainda assim usa SMTP real (bug proposital)
-		}
-		smtp.send(user.email(), "Bem-vindo", "Olá " + user.name());
+		mailSender.send(user.email(), "Bem-vindo", "Olá" + user.name());
 	}
 }

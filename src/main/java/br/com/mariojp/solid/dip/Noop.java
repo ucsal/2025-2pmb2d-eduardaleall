@@ -1,5 +1,5 @@
 package br.com.mariojp.solid.dip;
 
-public class Noop {
-
+public record Noop (String name, String email) {
+	
 }
