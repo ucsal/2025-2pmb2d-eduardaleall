@@ -10,3 +10,4 @@ public class EmailNotifier {
 		smtp.send(user.email(), "Bem-vindo", "Olá " + user.name());
 	}
 }
+//Teste
